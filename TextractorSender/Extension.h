@@ -1,10 +1,15 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN
+#include "Server.h"
 #include <windows.h>
 #include <cstdint>
 #include <string>
+#include <tchar.h>
+#include <psapi.h>
+#include <thread>
 
+using namespace std;
 
 struct InfoForExtension
 {
