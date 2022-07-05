@@ -9,7 +9,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved
 
 	if (ul_reason_for_call == DLL_PROCESS_DETACH)
 	{
-		CloseServerWrapper();
+		CloseServer();
 	}
 
 	return TRUE;
@@ -52,11 +52,11 @@ bool ProcessSentence(std::wstring& sentence, SentenceInfo sentenceInfo)
 	if (sentenceInfo["current select"])
 	{
 		PerSocketData data = {
-			sentence,
-			ProcessIdToName((DWORD)sentenceInfo["process id"])
+			ProcessIdToName((DWORD) sentenceInfo["process id"]),
+			sentence
 		};
 
-		BroadcastDataWrapper("broadcast", data);
+		BroadcastData(data);
 	}
 
 	return false;

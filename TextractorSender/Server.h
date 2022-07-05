@@ -2,13 +2,14 @@
 
 #include <time.h>
 #include <iostream>
+#include "Utilities.h"
 #include "uwebsockets/App.h"
 
 using namespace std;
 using namespace std::literals::chrono_literals;
 
 std::wstring const START_BRACKET = L"{";
-std::wstring const END_BRACKET = L"{";
+std::wstring const END_BRACKET = L"}";
 
 struct PerSocketData {
     std::wstring process_path;
@@ -21,6 +22,6 @@ struct PerSocketData {
 };
 
 void StartServer();
-void CloseServerWrapper();
+void CloseServer();
 
-void BroadcastDataWrapper(std::string topic, PerSocketData data);
+void BroadcastData(PerSocketData data);
