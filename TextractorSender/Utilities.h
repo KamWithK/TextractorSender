@@ -4,8 +4,9 @@
 #include <stdexcept>
 #include <iostream>
 #include <time.h>
-#include "uwebsockets/App.h"
+#include <uwebsockets/App.h>
 
 using namespace std;
 
-std::string ToString(const std::wstring& wide_string);
+wstring ProcessIdToName(DWORD processId);
+string ToString(const wstring& wide_string);

@@ -1,7 +1,30 @@
-#include"Utilities.h"
+#include "Utilities.h"
+
+wstring ProcessIdToName(DWORD processId) {
+	HANDLE Handle = OpenProcess(
+		PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+		FALSE,
+		processId
+	);
+	wstring ret;
+
+	if (Handle)
+	{
+		DWORD buffSize = MAX_PATH;
+		WCHAR buffer[MAX_PATH];
+		if (QueryFullProcessImageNameW(Handle, 0, buffer, &buffSize))
+		{
+			ret = buffer;
+		}
+
+		CloseHandle(Handle);
+	}
+
+	return ret;
+}
 
 // Sourced from https://stackoverflow.com/a/69410299
-std::string ToString(const std::wstring& wide_string)
+string ToString(const wstring& wide_string)
 {
     if (wide_string.empty())
     {

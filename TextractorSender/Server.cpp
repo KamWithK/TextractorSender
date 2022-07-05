@@ -40,12 +40,10 @@ void CloseServer() {
     });
 }
 
-void BroadcastData(PerSocketData data) {
-    string json_string = ToString(data.JsonString());
-
+void BroadcastData(string data) {
     if (gws) {
-        loop -> defer([json_string] {
-            gws -> send(json_string, uWS::OpCode::TEXT, false);
+        loop -> defer([data] {
+            gws -> send(data, uWS::OpCode::TEXT, false);
         });
     }
 }

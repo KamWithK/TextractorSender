@@ -1,15 +1,18 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN
-#include "Server.h"
 #include <windows.h>
 #include <cstdint>
 #include <string>
 #include <tchar.h>
 #include <psapi.h>
 #include <thread>
+#include <nlohmann/json.hpp>
+#include "Server.h"
+#include "Utilities.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 struct InfoForExtension
 {

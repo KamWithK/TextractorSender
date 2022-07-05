@@ -15,29 +15,6 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved
 	return TRUE;
 }
 
-std::wstring ProcessIdToName(DWORD processId) {
-	HANDLE Handle = OpenProcess(
-		PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
-		FALSE,
-		processId
-	);
-	std::wstring ret;
-
-	if (Handle)
-	{
-		DWORD buffSize = MAX_PATH;
-		WCHAR buffer[MAX_PATH];
-		if (QueryFullProcessImageNameW(Handle, 0, buffer, &buffSize))
-		{
-			ret = buffer;
-		}
-
-		CloseHandle(Handle);
-	}
-
-	return ret;
-}
-
 /*
 	Param sentence: sentence received by Textractor (UTF-16). Can be modified, Textractor will receive this modification only if true is returned.
 	Param sentenceInfo: contains miscellaneous info about the sentence (see README).
@@ -51,12 +28,15 @@ bool ProcessSentence(std::wstring& sentence, SentenceInfo sentenceInfo)
 {
 	if (sentenceInfo["current select"])
 	{
-		PerSocketData data = {
-			ProcessIdToName((DWORD) sentenceInfo["process id"]),
-			sentence
-		};
+		json data;
 
-		BroadcastData(data);
+		if (sentenceInfo["process id"])
+		{
+			data["process_path"] = ToString(ProcessIdToName((DWORD)sentenceInfo["process id"]));
+		}
+		data["sentence"] = ToString(sentence);
+
+		BroadcastData(data.dump());
 	}
 
 	return false;

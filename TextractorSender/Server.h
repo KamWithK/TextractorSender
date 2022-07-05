@@ -2,26 +2,17 @@
 
 #include <time.h>
 #include <iostream>
-#include "Utilities.h"
-#include "uwebsockets/App.h"
+#include <uwebsockets/App.h>
 
 using namespace std;
-using namespace std::literals::chrono_literals;
-
-std::wstring const START_BRACKET = L"{";
-std::wstring const END_BRACKET = L"}";
+using namespace literals::chrono_literals;
 
 struct PerSocketData {
-    std::wstring process_path;
-    std::wstring sentence;
-
-    std::wstring JsonString()
-    {
-        return START_BRACKET + L"process_path:" + process_path + L"," + L"sentence:" + sentence + END_BRACKET;
-    }
+    wstring process_path;
+    wstring sentence;
 };
 
 void StartServer();
 void CloseServer();
 
-void BroadcastData(PerSocketData data);
+void BroadcastData(string data);
