@@ -26,7 +26,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved
 */
 bool ProcessSentence(std::wstring& sentence, SentenceInfo sentenceInfo)
 {
-	if (sentenceInfo["current select"])
+	if (sentenceInfo["current select"] && sentenceInfo["process id"] != 0)
 	{
 		json data;
 
