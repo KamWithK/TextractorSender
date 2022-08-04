@@ -1,15 +1,19 @@
 #include "Extension.h"
 
+thread server_thread;
+
 BOOL WINAPI DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	if (ul_reason_for_call == DLL_PROCESS_ATTACH)
 	{
-		std::thread(StartServer).detach();
+		server_thread = thread(StartServer);
+		server_thread.detach();
 	}
 
 	if (ul_reason_for_call == DLL_PROCESS_DETACH)
 	{
 		CloseServer();
+		server_thread.join();
 	}
 
 	return TRUE;
