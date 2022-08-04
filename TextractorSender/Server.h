@@ -2,6 +2,7 @@
 
 #include <time.h>
 #include <iostream>
+#include <queue>
 #include <uwebsockets/App.h>
 
 using namespace std;
